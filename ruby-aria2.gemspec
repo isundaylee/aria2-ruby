@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ruby/aria2/version'
+require 'aria2/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby-aria2"
-  spec.version       = Ruby::Aria2::VERSION
+  spec.version       = Aria2::VERSION
   spec.authors       = ["Jiahao Li"]
   spec.email         = ["isundaylee.reg@gmail.com"]
-  spec.description   = %q{TODO: A gem to interact with Aria2 in Ruby. }
-  spec.summary       = %q{TODO: A gem to interact with Aria2 in Ruby. }
+  spec.description   = %q{A gem to interact with Aria2 in Ruby. }
+  spec.summary       = %q{A gem to interact with Aria2 in Ruby. }
   spec.homepage      = ""
   spec.license       = "MIT"
 
