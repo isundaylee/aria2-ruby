@@ -24,6 +24,15 @@ module Aria2
 			end
 		end
 
+		def self.download(url, path)
+			path = File.expand_path(path)
+			self.rpc_call('addUri', [[url], {
+				'dir' => File.dirname(path), 
+				'out' => File.basename(path),
+				'allow-overwrite' => 'true'
+			}])
+		end
+
 		private
 
 			def self.rpc_path
