@@ -58,6 +58,10 @@ module Aria2
 			status
 		end
 
+		def self.remove(gid)
+			self.rpc_call('remove', [gid]) == gid
+		end
+
 		private
 
 			def self.rpc_path
