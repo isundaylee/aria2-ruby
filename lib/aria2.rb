@@ -8,6 +8,7 @@ module Aria2
 		require 'json'
 		require 'base64'
 		require 'cgi'
+		require 'net/http'
 
 		def self.new(host = 'localhost', port = 6800)
 			@host = host
@@ -64,6 +65,22 @@ module Aria2
 
 		private
 
+			def self.get(url, params = {})
+				uri = URI.parse(url)
+
+				uri.query = URI.encode_www_form(params)
+
+				http = Net::HTTP.new(uri.host, uri.port)
+				request = Net::HTTP::Get.new(uri.request_uri)
+
+				response = http.request(request)
+
+				{
+					'code' => response.code.to_i, 
+					'body' => response.body
+				}
+			end
+
 			def self.rpc_path
 				"http://#{@host}:#{@port}/jsonrpc"
 			end
@@ -71,12 +88,16 @@ module Aria2
 			def self.rpc_call(method, params)
 				method = "aria2.#{method}"
 				id = 'ruby-aria2'
-				params_encoded = CGI.escape(Base64.encode64(JSON.generate(params)))
+				params_encoded = Base64.encode64(JSON.generate(params))
 
-				url = "#{self.rpc_path}?method=#{method}&id=#{id}&params=#{params_encoded}"
-				answer = JSON.parse(open(url).read)
+				response = get("#{self.rpc_path}", {'method' => method, 'id' => id, 'params' => params_encoded})
+				answer = JSON.parse(response['body'])
 
-				answer['result']
+				if response['code'] == 200
+					answer['result']
+				else
+					raise "AriaDownloader error #{answer['error']['code'].to_i}: #{answer['error']['message']}"
+				end
 			end
 
 	end
