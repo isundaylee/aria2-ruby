@@ -17,7 +17,7 @@ module Aria2
 
 		def self.check
 			begin
-				self.rpc_call('getGlobalStat', {})
+				self.rpc_call('getGlobalStat', [])
 				true
 			rescue
 				false
@@ -71,10 +71,7 @@ module Aria2
 			def self.rpc_call(method, params)
 				method = "aria2.#{method}"
 				id = 'ruby-aria2'
-				params_encoded = 
-					(params && !params.empty?) ? 
-					CGI.escape(Base64.encode64(JSON.generate(params))) :
-					''
+				params_encoded = CGI.escape(Base64.encode64(JSON.generate(params)))
 
 				url = "#{self.rpc_path}?method=#{method}&id=#{id}&params=#{params_encoded}"
 				answer = JSON.parse(open(url).read)
