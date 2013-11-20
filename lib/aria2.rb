@@ -33,6 +33,31 @@ module Aria2
 			}])
 		end
 
+		def self.query_status(gid)
+			status = self.rpc_call('tellStatus', [gid, [
+				'status', 
+				'totalLength', 
+				'completedLength', 
+				'downloadSpeed', 
+				'errorCode'
+			]])
+
+			status['totalLength'] = status['totalLength'].to_i
+			status['completedLength'] = status['completedLength'].to_i
+			status['downloadSpeed'] = status['downloadSpeed'].to_i
+			status['errorCode'] = status['errorCode'].to_i
+
+			status['progress'] = status['totalLength'] == 0 ? 
+				0 :
+				status['completedLength'].to_f / status['totalLength'].to_f
+
+			status['remainingTime'] = status['downloadSpeed'] == 0 ?
+				0 :
+				(status['totalLength'] - status['completedLength']).to_f / status['downloadSpeed']
+
+			status
+		end
+
 		private
 
 			def self.rpc_path
