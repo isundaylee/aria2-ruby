@@ -1,12 +1,12 @@
-# Ruby::Aria2
+# Aria2
 
-TODO: Write a gem description
+A gem to interact with Aria2 in Ruby. 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'ruby-aria2'
+    gem 'aria2-ruby'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-aria2
+    $ gem install aria2-ruby
 
 ## Usage
 
