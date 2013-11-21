@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'aria2/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ruby-aria2"
+  spec.name          = "aria2-ruby"
   spec.version       = Aria2::VERSION
   spec.authors       = ["Jiahao Li"]
   spec.email         = ["isundaylee.reg@gmail.com"]
