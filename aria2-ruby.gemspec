@@ -6,8 +6,8 @@ require 'aria2/version'
 Gem::Specification.new do |spec|
   spec.name          = "aria2-ruby"
   spec.version       = Aria2::VERSION
-  spec.authors       = ["Jiahao Li"]
-  spec.email         = ["isundaylee.reg@gmail.com"]
+  spec.authors       = ["Jiahao Li", "Jeroen Boonstra"]
+  spec.email         = ["isundaylee.reg@gmail.com", "jeroen@provider.nl"]
   spec.description   = %q{A gem to interact with Aria2 in Ruby. }
   spec.summary       = %q{A gem to interact with Aria2 in Ruby. }
   spec.homepage      = ""
