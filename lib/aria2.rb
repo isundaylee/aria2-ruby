@@ -209,12 +209,8 @@ module Aria2
 			def self.rpc_call(method, params)
 				method = "aria2.#{method}"
 				id = 'ruby-aria2'
-				params_encoded = Base64.encode64(JSON.generate(params))
-				if @token != '' then
-					response = get("#{self.rpc_path}", {'token' => @token, 'method' => method, 'id' => id, 'params' => params_encoded})
-				else
-					response = get("#{self.rpc_path}", {'method' => method, 'id' => id, 'params' => params_encoded})
-				end
+				params_encoded = Base64.encode64(JSON.generate(params.unshift("token:#{@token}")))
+				response = get("#{self.rpc_path}", {'method' => method, 'id' => id, 'params' => params_encoded})
 				answer = JSON.parse(response['body'])
 
 				if response['code'] == 200
